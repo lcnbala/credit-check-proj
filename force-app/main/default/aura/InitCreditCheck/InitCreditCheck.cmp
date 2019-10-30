@@ -1,0 +1,44 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <!--<aura:attribute name="recTypeId" type="string" default="" />-->
+    <aura:attribute name="showModal" type="boolean" default="false" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+
+    <lightning:button variant="success" label="Init Credit Check" title="Init Credit Check" onclick="{!c.showModal}" />
+
+    <aura:if isTrue="{!v.showModal}">
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+
+                    <lightning:buttonIcon iconName="utility:close" variant="bare" onclick="{!c.hideModal}"
+                        alternativeText="Close" class="slds-modal__close" />
+
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Init Credit Check</h2>
+                </header>
+
+                <aura:if isTrue="{!v.showSpinner}">
+                    <lightning:spinner />
+                </aura:if>
+
+                <lightning:recordEditForm aura:id="recordViewForm" onload="{!c.handleLoad}" onsubmit="{!c.handleSubmit}"
+                    onsuccess="{!c.handleSuccess}" recordId="{!v.recordId}" objectApiName="Case">
+                    <lightning:messages />
+                    <!--Picklist-->
+                    <lightning:inputField fieldName="Credit_Check_Status__c" />
+
+                    <lightning:button aura:id="submit" type="submit" label="Update record" class="slds-m-top_medium" />
+                </lightning:recordEditForm>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+        <div class="slds-p-bottom_large slds-p-left_large" style="width:500px">
+
+        </div>
+    </aura:if>
+
+</aura:component>

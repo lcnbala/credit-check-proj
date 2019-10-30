@@ -1,0 +1,35 @@
+<aura:component controller="CreditCheckController"
+    implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+
+    <aura:attribute name="account" type="Account" />
+    <aura:attribute name="newCase" type="Case"
+        default="{ 'sobjectType': 'Case' }" /> 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-page-header" role="banner">
+        <p class="slds-text-heading_label">{!v.account.Name}</p>
+        <h1 class="slds-page-header__title slds-m-right_small
+            slds-truncate slds-align-left">Create New Case</h1>
+    </div>
+
+     <lightning:input aura:id="caseField" name="subject" label="Subject"
+                      value="{!v.newCase.Subject}" required="true"/>
+  
+    <lightning:input aura:id="caseField" name="status" label="Status"
+                     value="{!v.newCase.Status}" required="true"/>
+            
+    <lightning:input aura:id="caseField" name="origin" label="Case Origin"
+                     value="{!v.newCase.Origin}" />
+
+    <lightning:select aura:id="caseField" name="crediCheck" label="Credit Check Status"
+        value="{!v.newCase.Credit_Check_Status__c}">
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+    </lightning:select> 
+        
+    <lightning:button label="Cancel" onclick="{!c.handleCancel}" class="slds-m-top_medium" />
+    <lightning:button label="Save Case" onclick="{!c.handleSave}"
+               variant="brand" class="slds-m-top_medium"/>
+    
+</aura:component>
